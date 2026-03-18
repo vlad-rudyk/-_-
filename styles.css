@@ -1,0 +1,223 @@
+/* Загальний стиль */
+:root {
+  --bg: #0b1220;
+  --panel: rgba(255, 255, 255, 0.08);
+  --panel-border: rgba(255, 255, 255, 0.12);
+  --accent: #38d4ff;
+  --accent2: #ff77d3;
+  --text: #eef2ff;
+  --shadow: rgba(0, 0, 0, 0.45);
+  --danger: #ff4d5a;
+  --success: #7cff87;
+  --font: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font);
+  color: var(--text);
+  background: radial-gradient(circle at top, rgba(56, 212, 255, 0.25), transparent 40%),
+    radial-gradient(circle at bottom, rgba(255, 119, 211, 0.24), transparent 40%),
+    linear-gradient(135deg, #0d1b33 0%, #05070b 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.app {
+  width: min(500px, 100%);
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-shadow: 0 0 16px rgba(56, 212, 255, 0.6);
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 0.95rem;
+  color: rgba(238, 242, 255, 0.75);
+}
+
+.game {
+  margin-top: 1.5rem;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 22px;
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 20px 60px var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.panel {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 0.75rem 1rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: rgba(238, 242, 255, 0.75);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.value {
+  font-size: 2.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 16px rgba(56, 212, 255, 0.3);
+}
+
+.click-button {
+  position: relative;
+  padding: 1.25rem 1.5rem;
+  border-radius: 20px;
+  border: 2px solid rgba(56, 212, 255, 0.65);
+  background: linear-gradient(160deg, rgba(56, 212, 255, 0.2), rgba(255, 119, 211, 0.18));
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  box-shadow: 0 16px 25px rgba(0, 0, 0, 0.4);
+  outline: none;
+  user-select: none;
+  animation: float 3.5s ease-in-out infinite;
+}
+
+.click-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.click-button:focus-visible {
+  outline: 3px solid rgba(56, 212, 255, 0.55);
+  outline-offset: 3px;
+}
+
+.click-button:active {
+  transform: scale(0.94);
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.start-button {
+  padding: 0.85rem 1.3rem;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 119, 211, 0.55);
+  background: rgba(255, 119, 211, 0.12);
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.start-button:hover {
+  background: rgba(255, 119, 211, 0.2);
+  transform: translateY(-2px);
+}
+
+.start-button:active {
+  transform: translateY(1px);
+}
+
+.message {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  min-height: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.message.visible {
+  opacity: 1;
+}
+
+.message.success {
+  color: var(--success);
+}
+
+.message.error {
+  color: var(--danger);
+}
+
+.confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.confetti > .piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  opacity: 0;
+  border-radius: 20%;
+  transform-origin: center;
+  animation: drop 1.2s linear forwards;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--x), 120vh, 0) rotate(var(--r));
+  }
+}
+
+.footer {
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  color: rgba(238, 242, 255, 0.6);
+}
+
+@media (max-width: 420px) {
+  .info {
+    flex-direction: column;
+  }
+
+  .stat {
+    width: 100%;
+  }
+}
